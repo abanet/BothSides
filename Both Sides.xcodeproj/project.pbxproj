@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C06377CD1BD114B000E70F59 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06377CC1BD114B000E70F59 /* AVFoundation.framework */; };
+		C076AFDB1BD5441300BF9DE6 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */; settings = {ASSET_TAGS = (); }; };
 		C0EDB2861BCE4F360004B1E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDB2851BCE4F360004B1E0 /* AppDelegate.swift */; };
 		C0EDB2881BCE4F360004B1E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDB2871BCE4F360004B1E0 /* ViewController.swift */; };
 		C0EDB28B1BCE4F360004B1E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EDB2891BCE4F360004B1E0 /* Main.storyboard */; };
 		C0EDB28D1BCE4F370004B1E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0EDB28C1BCE4F370004B1E0 /* Assets.xcassets */; };
 		C0EDB2901BCE4F370004B1E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EDB28E1BCE4F370004B1E0 /* LaunchScreen.storyboard */; };
+		C0EDB2981BCE865E0004B1E0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDB2971BCE865E0004B1E0 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C06377CC1BD114B000E70F59 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		C0EDB2821BCE4F360004B1E0 /* Both Sides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Both Sides.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0EDB2851BCE4F360004B1E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0EDB2871BCE4F360004B1E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		C0EDB28C1BCE4F370004B1E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0EDB28F1BCE4F370004B1E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0EDB2911BCE4F370004B1E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0EDB2971BCE865E0004B1E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C06377CD1BD114B000E70F59 /* AVFoundation.framework in Frameworks */,
+				C0EDB2981BCE865E0004B1E0 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +46,8 @@
 		C0EDB2791BCE4F360004B1E0 = {
 			isa = PBXGroup;
 			children = (
+				C06377CC1BD114B000E70F59 /* AVFoundation.framework */,
+				C0EDB2971BCE865E0004B1E0 /* CoreGraphics.framework */,
 				C0EDB2841BCE4F360004B1E0 /* Both Sides */,
 				C0EDB2831BCE4F360004B1E0 /* Products */,
 			);
@@ -54,6 +64,7 @@
 		C0EDB2841BCE4F360004B1E0 /* Both Sides */ = {
 			isa = PBXGroup;
 			children = (
+				C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */,
 				C0EDB2851BCE4F360004B1E0 /* AppDelegate.swift */,
 				C0EDB2871BCE4F360004B1E0 /* ViewController.swift */,
 				C0EDB2891BCE4F360004B1E0 /* Main.storyboard */,
@@ -134,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C076AFDB1BD5441300BF9DE6 /* UIImage+extension.swift in Sources */,
 				C0EDB2881BCE4F360004B1E0 /* ViewController.swift in Sources */,
 				C0EDB2861BCE4F360004B1E0 /* AppDelegate.swift in Sources */,
 			);
@@ -283,6 +295,7 @@
 				C0EDB2961BCE4F370004B1E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
