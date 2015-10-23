@@ -20,6 +20,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
+    var camaraUsada = AVCaptureDevicePosition.Front
     
     @IBOutlet weak var imagenIzquierda: UIImageView!
     @IBOutlet weak var imagenDerecha: UIImageView!
@@ -42,44 +43,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        captureSession = AVCaptureSession()
-        captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
-        let frontCamera = camaraConPosicion(AVCaptureDevicePosition.Front)
-        //let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        
-        //Preparamos para aceptar la entrada del dispositivo
-        
-        var error: NSError?
-        var input: AVCaptureDeviceInput!
-        do {
-            input = try AVCaptureDeviceInput(device: frontCamera)
-        } catch let error1 as NSError {
-            error = error1
-            input = nil
-        }
-        
-        if error == nil && captureSession!.canAddInput(input) {
-            captureSession!.addInput(input)
-            
-            stillImageOutput = AVCaptureStillImageOutput()
-            stillImageOutput!.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-            if captureSession!.canAddOutput(stillImageOutput) {
-                captureSession!.addOutput(stillImageOutput)
-                
-                previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                previewLayer!.videoGravity = AVLayerVideoGravityResizeAspect
-                previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
-                fotoView.layer.addSublayer(previewLayer!)
-                
-                captureSession!.startRunning()
-            }
-        }
     }
 
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        cargarCamara()
         previewLayer!.frame = fotoView.bounds
+        
     }
     
     
@@ -105,6 +77,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    
+    func cargarCamara() {
+        //
+        captureSession?.stopRunning()
+        previewLayer?.removeFromSuperlayer()
+        
+        captureSession = AVCaptureSession()
+        captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
+        let camara = camaraConPosicion(camaraUsada)
+        //let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        
+        //Preparamos para aceptar la entrada del dispositivo
+        
+        var error: NSError?
+        var input: AVCaptureDeviceInput!
+        do {
+            input = try AVCaptureDeviceInput(device: camara)
+        } catch let error1 as NSError {
+            error = error1
+            input = nil
+        }
+        
+        if error == nil && captureSession!.canAddInput(input) {
+            captureSession!.addInput(input)
+            
+            stillImageOutput = AVCaptureStillImageOutput()
+            stillImageOutput!.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+            if captureSession!.canAddOutput(stillImageOutput) {
+                captureSession!.addOutput(stillImageOutput)
+                
+                previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                previewLayer!.frame = fotoView.frame
+                previewLayer!.videoGravity = AVLayerVideoGravityResizeAspect
+                previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
+                fotoView.layer.addSublayer(previewLayer!)
+                
+                captureSession!.startRunning()
+            }
+        }
+
+    }
     
     func dibujarLinea(desde: CGPoint, hasta: CGPoint) {
         print("Llamando a dibujar línea")
@@ -205,6 +218,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func identicasDimensiones(imagen1: UIImage, imagen2: UIImage) -> Bool {
         return imagen1.size.width == imagen2.size.width && imagen1.size.height == imagen2.size.height ? true : false
+    }
+    
+    // MARK: Darle la vuelta a la cámara
+    
+    @IBAction func voltearCamara(sender: AnyObject) {
+        if camaraUsada == AVCaptureDevicePosition.Front {
+            camaraUsada = AVCaptureDevicePosition.Back
+        } else {
+            camaraUsada = AVCaptureDevicePosition.Front
+        }
+        cargarCamara()
     }
 }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -46,19 +47,57 @@
                             </button>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhG-bm-eeq">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCR-Aa-9lM">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="slZ-89-Zvp"/>
+                                            <constraint firstAttribute="height" constant="51" id="z4K-YB-CSS"/>
+                                        </constraints>
+                                        <state key="normal" image="Camera"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="slZ-89-Zvp"/>
+                                                <exclude reference="z4K-YB-CSS"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="slZ-89-Zvp"/>
+                                                <include reference="z4K-YB-CSS"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="voltearCamara:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MF6-Lq-wvF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iCR-Aa-9lM" secondAttribute="trailing" constant="8" id="6cG-f6-PaM"/>
+                                    <constraint firstItem="iCR-Aa-9lM" firstAttribute="top" secondItem="RhG-bm-eeq" secondAttribute="top" constant="8" id="Ini-12-1XB"/>
                                     <constraint firstAttribute="height" constant="254" id="s0c-wY-2YM"/>
                                 </constraints>
                                 <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="iCR-Aa-9lM"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <exclude reference="s0c-wY-2YM"/>
+                                        <exclude reference="6cG-f6-PaM"/>
+                                        <exclude reference="Ini-12-1XB"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="iCR-Aa-9lM"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <include reference="s0c-wY-2YM"/>
+                                        <include reference="6cG-f6-PaM"/>
+                                        <include reference="Ini-12-1XB"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -72,7 +111,7 @@
                             </imageView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="RhG-bm-eeq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="38g-f3-jOx"/>
                             <constraint firstItem="hHw-gp-3jM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7oE-cL-6h2"/>
@@ -105,6 +144,15 @@
                                 <exclude reference="PgR-Vb-FJb"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="gxf-Yo-sZM"/>
+                                <exclude reference="7oE-cL-6h2"/>
+                                <exclude reference="JJU-Ng-G8U"/>
+                                <exclude reference="SEi-Ww-6TV"/>
+                                <exclude reference="jzm-lb-kvR"/>
+                                <exclude reference="DYU-xd-i33"/>
+                                <exclude reference="Ghf-YO-uh5"/>
+                                <exclude reference="W99-th-reY"/>
+                                <exclude reference="d2j-Xq-eC4"/>
                                 <exclude reference="38g-f3-jOx"/>
                                 <exclude reference="9xg-1h-mCR"/>
                                 <exclude reference="Q2P-Nt-hPL"/>
@@ -116,15 +164,6 @@
                                 <exclude reference="FCX-Ya-QJY"/>
                                 <exclude reference="cPv-h1-YA4"/>
                                 <exclude reference="q5m-EX-jWj"/>
-                                <exclude reference="DYU-xd-i33"/>
-                                <exclude reference="Ghf-YO-uh5"/>
-                                <exclude reference="W99-th-reY"/>
-                                <exclude reference="d2j-Xq-eC4"/>
-                                <exclude reference="7oE-cL-6h2"/>
-                                <exclude reference="JJU-Ng-G8U"/>
-                                <exclude reference="SEi-Ww-6TV"/>
-                                <exclude reference="jzm-lb-kvR"/>
-                                <exclude reference="gxf-Yo-sZM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -135,6 +174,15 @@
                                 <include reference="PgR-Vb-FJb"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="gxf-Yo-sZM"/>
+                                <exclude reference="7oE-cL-6h2"/>
+                                <include reference="JJU-Ng-G8U"/>
+                                <include reference="SEi-Ww-6TV"/>
+                                <include reference="jzm-lb-kvR"/>
+                                <include reference="DYU-xd-i33"/>
+                                <include reference="Ghf-YO-uh5"/>
+                                <include reference="W99-th-reY"/>
+                                <include reference="d2j-Xq-eC4"/>
                                 <exclude reference="38g-f3-jOx"/>
                                 <exclude reference="9xg-1h-mCR"/>
                                 <include reference="Q2P-Nt-hPL"/>
@@ -146,15 +194,6 @@
                                 <include reference="FCX-Ya-QJY"/>
                                 <include reference="cPv-h1-YA4"/>
                                 <include reference="q5m-EX-jWj"/>
-                                <include reference="DYU-xd-i33"/>
-                                <include reference="Ghf-YO-uh5"/>
-                                <include reference="W99-th-reY"/>
-                                <include reference="d2j-Xq-eC4"/>
-                                <exclude reference="7oE-cL-6h2"/>
-                                <include reference="JJU-Ng-G8U"/>
-                                <include reference="SEi-Ww-6TV"/>
-                                <include reference="jzm-lb-kvR"/>
-                                <include reference="gxf-Yo-sZM"/>
                             </mask>
                         </variation>
                     </view>
@@ -167,7 +206,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="837" y="677"/>
+            <point key="canvasLocation" x="645" y="683"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="64" height="64"/>
+    </resources>
 </document>
