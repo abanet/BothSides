@@ -119,27 +119,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     }
     
-    func dibujarLinea(desde: CGPoint, hasta: CGPoint) {
-        print("Llamando a dibujar línea")
-        UIGraphicsBeginImageContext(imgUser.frame.size)
-        let context = UIGraphicsGetCurrentContext()
-        //imgUser.image?.drawInRect(CGRect(x:0, y:0, width: view.frame.size.width, height: view.frame.size.height))
-        
-        CGContextMoveToPoint(context, desde.x, desde.y)
-        CGContextAddLineToPoint(context, hasta.x, hasta.y)
-        
-        CGContextSetLineCap(context, CGLineCap.Round)
-        CGContextSetLineWidth(context, brushWidth)
-        CGContextSetRGBStrokeColor(context, red, green, blue, 1.0)
-        CGContextSetBlendMode(context, CGBlendMode.Normal)
-        
-        CGContextStrokePath(context)
-        
-        imgUser.image = UIGraphicsGetImageFromCurrentImageContext()
-        imgUser.alpha = 1.0
-        UIGraphicsEndImageContext()
-        
-    }
+    
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
        // fotoView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
