@@ -22,22 +22,44 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var previewLayer: AVCaptureVideoPreviewLayer?
     var camaraUsada = AVCaptureDevicePosition.Front
     
+    
     @IBOutlet weak var imagenIzquierda: UIImageView!
     @IBOutlet weak var imagenDerecha: UIImageView!
     
 
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var fotoView: UIView!
+    var vistaImagenGrande: UIImageView?
+    var imagenGrandeVisualizadaDerecha = true
    
     
     @IBOutlet weak var btnHacerFoto: UIButton!
+    
+    
+    @IBOutlet weak var btnFaceDerecha: UIButton!
+    @IBOutlet weak var btnTwitterDereche: UIButton!
+    @IBOutlet weak var btnFaceIzquierda: UIButton!
+    @IBOutlet weak var btnTwitterIzquierda: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         btnHacerFoto.layer.cornerRadius = 5
+        let tapImagenDerecha = UITapGestureRecognizer()
+        let tapImagenIzquierda = UITapGestureRecognizer()
         
+        
+        imagenIzquierda.userInteractionEnabled = true
+        imagenDerecha.userInteractionEnabled = true
+        
+        
+        tapImagenDerecha.addTarget(self, action: "imagenDerechaPulsada")
+        tapImagenIzquierda.addTarget(self, action: "imagenIzquierdaPulsada")
+        
+        
+        imagenDerecha.addGestureRecognizer(tapImagenDerecha)
+        imagenIzquierda.addGestureRecognizer(tapImagenIzquierda)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -136,7 +158,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     }
     
+    // MARK: Tratamiento de imágenes
     
+    // Crea una imagen con el lado izquierdo de la foto original
     func imagenIzquierdas(imagenOriginal: UIImage) -> UIImage {
         let newWidth = (imagenOriginal.size.width / 2)
         
@@ -152,6 +176,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return juntarImagenes(newImagenIzquierda, imagen2: imagenRotada)!
     }
     
+    // Crea una imagen con el lado derecho de la foto original
     func imagenDerechas(imagenOriginal: UIImage) -> UIImage {
         let newWidth = (imagenOriginal.size.width / 2)
         
@@ -167,6 +192,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return juntarImagenes(imagenRotada, imagen2: newImagenDerecha)!
     }
     
+    // Ponemos la foto en posición vertical (móvil en vertical)
     func imagenNormalizada (imagen: UIImage) -> UIImage {
         if(imagen.imageOrientation == UIImageOrientation.Up) {
             return imagen
@@ -178,9 +204,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return imagenNormalizada
     }
     
+    
+    
     // Función que junta las dos imágenes en una
     // Se asume que el tamaño de las dos imágenes es igual
-    
     func juntarImagenes(imagen1: UIImage, imagen2: UIImage) -> UIImage? {
         if !identicasDimensiones(imagen1, imagen2: imagen2) {
             return nil
@@ -210,5 +237,116 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         cargarCamara()
     }
+    
+    // MARK: Touch sobre las imágenes
+    // 
+    func imagenDerechaPulsada() {
+        // Abrimos una vista con la imagen en grande
+        imagenGrandeVisualizadaDerecha = true
+        self.visualizarImagenGrande(imagenDerecha.image!)
+    }
+    
+    func imagenIzquierdaPulsada() {
+        imagenGrandeVisualizadaDerecha = false
+        self.visualizarImagenGrande(imagenIzquierda.image!)
+    }
+    
+    func imagenGrandePulsada() {
+        print("imagen Grande Pulsada")
+        vistaImagenGrande!.removeFromSuperview()
+        for v in view.subviews {
+            if v is UIVisualEffectView {
+                v.removeFromSuperview()
+            }
+        }
+    }
+    
+    // MARK: Swipe sobre las imágenes
+    func imagenGrandeSwiped(sender: UISwipeGestureRecognizer) {
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseOut, animations: {
+            if sender.direction == .Left {
+                self.vistaImagenGrande!.center.x = -(self.view.bounds.size.width / 2)
+            } else {
+                self.vistaImagenGrande!.center.x = self.view.bounds.size.width
+            }
+            self.vistaImagenGrande!.alpha = 0.0
+            }, completion: {
+                (value: Bool) in
+                self.imagenGrandePulsada()
+                if self.imagenGrandeVisualizadaDerecha {
+                    self.visualizarImagenGrande(self.imagenIzquierda.image!)
+                    self.imagenGrandeVisualizadaDerecha = false
+                } else {
+                    self.visualizarImagenGrande(self.imagenDerecha.image!)
+                    self.imagenGrandeVisualizadaDerecha = true
+                }
+        })
+    }
+    
+    func visualizarImagenGrande(imagen: UIImage){
+        print("imagen pulsada tamaño: \(imagen.size.width), \(imagen.size.height)")
+        vistaImagenGrande = UIImageView(frame: CGRect(x: 30, y: 30, width: self.view.bounds.size.width - 60, height: self.view.bounds.size.height - 60))
+        
+        // gestos para la imagen grande
+        vistaImagenGrande!.userInteractionEnabled = true
+        let tapImagenGrande = UITapGestureRecognizer()
+        tapImagenGrande.addTarget(self, action: "imagenGrandePulsada")
+        vistaImagenGrande!.addGestureRecognizer(tapImagenGrande)
+        
+        let swipeImagenGrandeDerecha = UISwipeGestureRecognizer()
+        swipeImagenGrandeDerecha.direction = .Right
+        swipeImagenGrandeDerecha.addTarget(self, action: "imagenGrandeSwiped:")
+        vistaImagenGrande!.addGestureRecognizer(swipeImagenGrandeDerecha)
+        
+        let swipeImagenGrandeIzquierda = UISwipeGestureRecognizer()
+        swipeImagenGrandeIzquierda.direction = .Left
+        swipeImagenGrandeIzquierda.addTarget(self, action: "imagenGrandeSwiped:")
+        vistaImagenGrande!.addGestureRecognizer(swipeImagenGrandeIzquierda)
+        
+        vistaImagenGrande!.layer.cornerRadius = 10.0
+        vistaImagenGrande!.clipsToBounds = true
+        vistaImagenGrande!.layer.borderColor = UIColor.blackColor().CGColor
+        vistaImagenGrande!.layer.borderWidth = 1.0
+        vistaImagenGrande!.alpha = 0.0
+        
+        insertBlurView(self.view, style: .Dark)
+        vistaImagenGrande!.image = imagen
+        vistaImagenGrande!.contentMode = .ScaleAspectFill
+        self.view.addSubview(vistaImagenGrande!)
+        UIView.animateWithDuration(0.5, animations: {
+            self.vistaImagenGrande!.alpha = 1.0
+        })
+        
+        // Insertamos el nombre de la app
+        let etiqueta = UILabel(frame: CGRect(x: vistaImagenGrande!.bounds.width / 2, y: vistaImagenGrande!.bounds.height - 60, width: 200, height: 30))
+        vistaImagenGrande!.addSubview(etiqueta)
+        etiqueta.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint (item: etiqueta, attribute: .CenterX, relatedBy: .Equal, toItem: vistaImagenGrande!, attribute: .CenterX, multiplier: 1.0, constant: 0).active = true
+        NSLayoutConstraint(item: etiqueta, attribute: .BottomMargin, relatedBy: .Equal, toItem: vistaImagenGrande!, attribute: .Bottom, multiplier: 1.0, constant: -30.0).active = true
+        etiqueta.textColor = UIColor.whiteColor()
+        etiqueta.font = UIFont(name: "Avenir New", size: 22.0)
+        etiqueta.text = "BothSides App"
+        
+        
+        // La centramos en el centro de la pantalla
+//        vistaImagenGrande?.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint(item: vistaImagenGrande!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1.0, constant: 0.0).active = true
+//        NSLayoutConstraint(item: vistaImagenGrande!, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1.0, constant: 0.0).active = true
+
+    }
+    
+    func insertBlurView(view: UIView, style: UIBlurEffectStyle) -> UIVisualEffectView {
+        view.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        self.view.insertSubview(blurEffectView, belowSubview: vistaImagenGrande!)
+        return blurEffectView
+    }
+    
+    
+    
+    // MARK: Compartir con redes sociales
 }
 
