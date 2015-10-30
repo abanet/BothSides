@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C06377CD1BD114B000E70F59 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06377CC1BD114B000E70F59 /* AVFoundation.framework */; };
-		C076AFDB1BD5441300BF9DE6 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */; settings = {ASSET_TAGS = (); }; };
+		C076AFDB1BD5441300BF9DE6 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */; };
+		C0DE23341BE3B8750036BE6F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DE23331BE3B8750036BE6F /* QuartzCore.framework */; };
+		C0DE23361BE3E29D0036BE6F /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DE23351BE3E29D0036BE6F /* iAd.framework */; };
 		C0EDB2861BCE4F360004B1E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDB2851BCE4F360004B1E0 /* AppDelegate.swift */; };
 		C0EDB2881BCE4F360004B1E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDB2871BCE4F360004B1E0 /* ViewController.swift */; };
 		C0EDB28B1BCE4F360004B1E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EDB2891BCE4F360004B1E0 /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		C06377CC1BD114B000E70F59 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C076AFDA1BD5441300BF9DE6 /* UIImage+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		C0DE23331BE3B8750036BE6F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C0DE23351BE3E29D0036BE6F /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C0EDB2821BCE4F360004B1E0 /* Both Sides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Both Sides.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0EDB2851BCE4F360004B1E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0EDB2871BCE4F360004B1E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DE23361BE3E29D0036BE6F /* iAd.framework in Frameworks */,
+				C0DE23341BE3B8750036BE6F /* QuartzCore.framework in Frameworks */,
 				C06377CD1BD114B000E70F59 /* AVFoundation.framework in Frameworks */,
 				C0EDB2981BCE865E0004B1E0 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -46,6 +52,8 @@
 		C0EDB2791BCE4F360004B1E0 = {
 			isa = PBXGroup;
 			children = (
+				C0DE23351BE3E29D0036BE6F /* iAd.framework */,
+				C0DE23331BE3B8750036BE6F /* QuartzCore.framework */,
 				C06377CC1BD114B000E70F59 /* AVFoundation.framework */,
 				C0EDB2971BCE865E0004B1E0 /* CoreGraphics.framework */,
 				C0EDB2841BCE4F360004B1E0 /* Both Sides */,
@@ -258,8 +266,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Both Sides/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Both",
+					Sides,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "es.iosconnection.Both-Sides";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -269,8 +283,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Both Sides/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Both",
+					Sides,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "es.iosconnection.Both-Sides";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

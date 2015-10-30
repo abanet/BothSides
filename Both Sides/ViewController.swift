@@ -10,8 +10,9 @@
 import UIKit
 import AVFoundation
 import Social
+import iAd
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController {
 
     let red: CGFloat = 0.0
     let green: CGFloat = 0.0
@@ -61,6 +62,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         imagenDerecha.addGestureRecognizer(tapImagenDerecha)
         imagenIzquierda.addGestureRecognizer(tapImagenIzquierda)
+        
+        canDisplayBannerAds = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -147,11 +150,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     }
     
-    
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-       // fotoView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-    }
     
     // MARK: función para especificar la cámara
     func camaraConPosicion(posicion: AVCaptureDevicePosition)-> AVCaptureDevice {
@@ -265,6 +263,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 v.removeFromSuperview()
             }
         }
+        self.view.backgroundColor = UIColor.lightGrayColor() // no sé pq al volver pierde el gris de la vista principal (se ve pero transparente)
     }
     
     // MARK: Swipe sobre las imágenes
@@ -324,7 +323,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
         
         // Insertamos el nombre de la app
-        let etiqueta = UILabel(frame: CGRect(x: vistaImagenGrande!.bounds.width / 2, y: vistaImagenGrande!.bounds.height - 60, width: 200, height: 30))
+        let etiqueta = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         vistaImagenGrande!.addSubview(etiqueta)
         etiqueta.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint (item: etiqueta, attribute: .CenterX, relatedBy: .Equal, toItem: vistaImagenGrande!, attribute: .CenterX, multiplier: 1.0, constant: 0).active = true
@@ -367,7 +366,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func compartirFacebookImagen(imagen: UIImage) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
             let fbShare:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            fbShare.addImage(imagen)
+            fbShare.addImage(mergeImagenEtiqueta(imagen))
             fbShare.setInitialText("BothSides App!")
             self.presentViewController(fbShare, animated: true, completion: nil)
         } else {
@@ -391,7 +390,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
             let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             twitterSheet.setInitialText("BothSides App")
-            twitterSheet.addImage(imagen)
+            twitterSheet.addImage(mergeImagenEtiqueta(imagen))
             self.presentViewController(twitterSheet, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -399,5 +398,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
+    // MARK: Merge de imagen con etiqueta
+    func mergeImagenEtiqueta(imagen: UIImage) -> UIImage {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.whiteColor()
+        label.font = UIFont(name: "Helvetica", size: 27.0)
+        label.text = "BothSides App"
+        
+        let vistaImagen: UIImageView = UIImageView(image: imagen)
+        let size = imagen.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        vistaImagen.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        label.drawTextInRect(CGRect(x:imagen.size.width / 2 - label.layer.bounds.size.width / 2, y:imagen.size.height / 2, width:200, height:60))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    
 }
 
