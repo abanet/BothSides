@@ -79,21 +79,33 @@
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <animations/>
                                         <state key="normal" image="Facebook"/>
+                                        <connections>
+                                            <action selector="compartirFacebookImagenDerecha:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t7m-c9-R2d"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZO-KX-63m">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <animations/>
                                         <state key="normal" image="Facebook"/>
+                                        <connections>
+                                            <action selector="compartirFacebookImagenIzquierda:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tnJ-Pf-Jej"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypk-RR-EQE">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <animations/>
                                         <state key="normal" image="Twitter"/>
+                                        <connections>
+                                            <action selector="compartirTwitterIzquierda:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xw-R0-0e3"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hw4-PT-2mX">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <animations/>
                                         <state key="normal" image="Twitter"/>
+                                        <connections>
+                                            <action selector="compartirTwitterDerecha:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EAq-9Y-CeH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
@@ -140,30 +152,30 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="s0c-wY-2YM"/>
-                                        <exclude reference="6cG-f6-PaM"/>
-                                        <exclude reference="Ini-12-1XB"/>
-                                        <exclude reference="Ktl-Lb-VE9"/>
-                                        <exclude reference="bW1-o0-7RA"/>
-                                        <exclude reference="FKu-qL-sqS"/>
-                                        <exclude reference="JZG-mb-maK"/>
-                                        <exclude reference="fzV-bP-NI0"/>
-                                        <exclude reference="j9R-Uf-2d3"/>
-                                        <exclude reference="HQP-zE-bQ0"/>
-                                        <exclude reference="QAw-TQ-qiw"/>
-                                        <exclude reference="R5y-i2-Uuz"/>
-                                        <exclude reference="ZEc-U5-bRU"/>
-                                        <exclude reference="Esx-Yf-3lK"/>
-                                        <exclude reference="ebc-ie-SG4"/>
-                                        <exclude reference="qHB-1Y-fBd"/>
-                                        <exclude reference="wfO-aI-zvT"/>
                                         <exclude reference="PpO-jG-8pe"/>
                                         <exclude reference="ZXM-h2-2l7"/>
                                         <exclude reference="iqc-ap-FxY"/>
                                         <exclude reference="t6x-nE-60i"/>
+                                        <exclude reference="FKu-qL-sqS"/>
+                                        <exclude reference="JZG-mb-maK"/>
+                                        <exclude reference="fzV-bP-NI0"/>
+                                        <exclude reference="j9R-Uf-2d3"/>
                                         <exclude reference="Qoi-Nx-ntn"/>
                                         <exclude reference="Rtf-a3-y8q"/>
                                         <exclude reference="cIQ-vv-wDb"/>
                                         <exclude reference="dVC-td-qAb"/>
+                                        <exclude reference="6cG-f6-PaM"/>
+                                        <exclude reference="Ini-12-1XB"/>
+                                        <exclude reference="Ktl-Lb-VE9"/>
+                                        <exclude reference="bW1-o0-7RA"/>
+                                        <exclude reference="Esx-Yf-3lK"/>
+                                        <exclude reference="ebc-ie-SG4"/>
+                                        <exclude reference="qHB-1Y-fBd"/>
+                                        <exclude reference="wfO-aI-zvT"/>
+                                        <exclude reference="HQP-zE-bQ0"/>
+                                        <exclude reference="QAw-TQ-qiw"/>
+                                        <exclude reference="R5y-i2-Uuz"/>
+                                        <exclude reference="ZEc-U5-bRU"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
@@ -177,30 +189,30 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="s0c-wY-2YM"/>
-                                        <exclude reference="6cG-f6-PaM"/>
-                                        <exclude reference="Ini-12-1XB"/>
-                                        <include reference="Ktl-Lb-VE9"/>
-                                        <include reference="bW1-o0-7RA"/>
-                                        <include reference="FKu-qL-sqS"/>
-                                        <include reference="JZG-mb-maK"/>
-                                        <include reference="fzV-bP-NI0"/>
-                                        <include reference="j9R-Uf-2d3"/>
-                                        <include reference="HQP-zE-bQ0"/>
-                                        <include reference="QAw-TQ-qiw"/>
-                                        <include reference="R5y-i2-Uuz"/>
-                                        <include reference="ZEc-U5-bRU"/>
-                                        <include reference="Esx-Yf-3lK"/>
-                                        <include reference="ebc-ie-SG4"/>
-                                        <exclude reference="qHB-1Y-fBd"/>
-                                        <exclude reference="wfO-aI-zvT"/>
                                         <include reference="PpO-jG-8pe"/>
                                         <include reference="ZXM-h2-2l7"/>
                                         <include reference="iqc-ap-FxY"/>
                                         <include reference="t6x-nE-60i"/>
+                                        <include reference="FKu-qL-sqS"/>
+                                        <include reference="JZG-mb-maK"/>
+                                        <include reference="fzV-bP-NI0"/>
+                                        <include reference="j9R-Uf-2d3"/>
                                         <include reference="Qoi-Nx-ntn"/>
                                         <include reference="Rtf-a3-y8q"/>
                                         <include reference="cIQ-vv-wDb"/>
                                         <include reference="dVC-td-qAb"/>
+                                        <exclude reference="6cG-f6-PaM"/>
+                                        <exclude reference="Ini-12-1XB"/>
+                                        <include reference="Ktl-Lb-VE9"/>
+                                        <include reference="bW1-o0-7RA"/>
+                                        <include reference="Esx-Yf-3lK"/>
+                                        <include reference="ebc-ie-SG4"/>
+                                        <exclude reference="qHB-1Y-fBd"/>
+                                        <exclude reference="wfO-aI-zvT"/>
+                                        <include reference="HQP-zE-bQ0"/>
+                                        <include reference="QAw-TQ-qiw"/>
+                                        <include reference="R5y-i2-Uuz"/>
+                                        <include reference="ZEc-U5-bRU"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -281,7 +293,7 @@
                             <constraint firstItem="PgR-Vb-FJb" firstAttribute="top" secondItem="RhG-bm-eeq" secondAttribute="bottom" constant="8" id="d2j-Xq-eC4"/>
                             <constraint firstItem="RhG-bm-eeq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="dpO-IO-3qY"/>
                             <constraint firstItem="E9q-ue-4Ca" firstAttribute="centerY" secondItem="RhG-bm-eeq" secondAttribute="centerY" id="elU-hj-RH5">
-                                <variation key="widthClass=compact" constant="-22.5"/>
+                                <variation key="widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="RhG-bm-eeq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="f5x-Rh-BwK"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o7N-eJ-Y3A" secondAttribute="bottom" constant="8" id="hOQ-GG-h3D">

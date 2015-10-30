@@ -9,6 +9,7 @@
 
 import UIKit
 import AVFoundation
+import Social
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -92,8 +93,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
                     
                     let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
+                    if self.camaraUsada == AVCaptureDevicePosition.Back {
                     self.imagenDerecha.image = self.imagenDerechas(self.imagenNormalizada(image))
                     self.imagenIzquierda.image = self.imagenIzquierdas(self.imagenNormalizada(image))
+                    } else {
+                        self.imagenDerecha.image = self.imagenIzquierdas(self.imagenNormalizada(image))
+                        self.imagenIzquierda.image = self.imagenDerechas(self.imagenNormalizada(image))
+                    }
                 }
             })
         }
@@ -106,7 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         previewLayer?.removeFromSuperlayer()
         
         captureSession = AVCaptureSession()
-        captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
+        captureSession!.sessionPreset = AVCaptureSessionPresetMedium //AVCaptureSessionPresetPhoto
         let camara = camaraConPosicion(camaraUsada)
         //let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         
@@ -130,7 +136,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 captureSession!.addOutput(stillImageOutput)
                 
                 previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                previewLayer!.frame = fotoView.frame
+                previewLayer!.frame = fotoView.bounds
                 previewLayer!.videoGravity = AVLayerVideoGravityResizeAspect
                 previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
                 fotoView.layer.addSublayer(previewLayer!)
@@ -347,6 +353,51 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     
-    // MARK: Compartir con redes sociales
+    // MARK: Compartir con Facebook
+    @IBAction func compartirFacebookImagenDerecha(sender: AnyObject) {
+        compartirFacebookImagen(imagenDerecha.image!)
+
+    }
+    
+    @IBAction func compartirFacebookImagenIzquierda(sender: AnyObject) {
+        compartirFacebookImagen(imagenIzquierda.image!)
+        
+    }
+    
+    func compartirFacebookImagen(imagen: UIImage) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            let fbShare:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            fbShare.addImage(imagen)
+            fbShare.setInitialText("BothSides App!")
+            self.presentViewController(fbShare, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: Compartir en Twitter
+    
+    @IBAction func compartirTwitterDerecha(sender: AnyObject) {
+        compartirTwitterImagen(imagenDerecha.image!)
+    }
+    
+    @IBAction func compartirTwitterIzquierda(sender: AnyObject) {
+        compartirTwitterImagen(imagenIzquierda.image!)
+    }
+    
+    func compartirTwitterImagen(imagen: UIImage) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
+            let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            twitterSheet.setInitialText("BothSides App")
+            twitterSheet.addImage(imagen)
+            self.presentViewController(twitterSheet, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
 }
 
