@@ -10,7 +10,8 @@
 import UIKit
 import AVFoundation
 import Social
-import iAd
+import GoogleMobileAds
+
 
 class ViewController: UIViewController {
 
@@ -39,13 +40,22 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var btnFaceDerecha: UIButton!
-    @IBOutlet weak var btnTwitterDereche: UIButton!
+    @IBOutlet weak var btnTwitterDerecha: UIButton!
     @IBOutlet weak var btnFaceIzquierda: UIButton!
     @IBOutlet weak var btnTwitterIzquierda: UIButton!
+    
+    @IBOutlet var bannerView: GADBannerView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // botones de compartir en redes deshabilitados hasta que no haya foto que compartir
+        btnFaceDerecha.enabled = false
+        btnFaceIzquierda.enabled = false
+        btnTwitterDerecha.enabled = false
+        btnTwitterIzquierda.enabled = false
         
         btnHacerFoto.layer.cornerRadius = 5
         let tapImagenDerecha = UITapGestureRecognizer()
@@ -54,6 +64,10 @@ class ViewController: UIViewController {
         
         imagenIzquierda.userInteractionEnabled = true
         imagenDerecha.userInteractionEnabled = true
+        imagenIzquierda.layer.cornerRadius = CGRectGetWidth(imagenIzquierda.frame) / 16.0
+        imagenIzquierda.layer.masksToBounds = true
+        imagenDerecha.layer.cornerRadius = CGRectGetWidth(imagenDerecha.frame) / 16.0
+        imagenDerecha.layer.masksToBounds = true
         
         
         tapImagenDerecha.addTarget(self, action: "imagenDerechaPulsada")
@@ -63,7 +77,12 @@ class ViewController: UIViewController {
         imagenDerecha.addGestureRecognizer(tapImagenDerecha)
         imagenIzquierda.addGestureRecognizer(tapImagenIzquierda)
         
-        canDisplayBannerAds = true
+        // Cargamos el banner de anuncios
+        bannerView.adUnitID = "ca-app-pub-3455028088714350/6436362222"
+        bannerView.rootViewController = self
+        bannerView.loadRequest(GADRequest())
+        
+       
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -103,6 +122,11 @@ class ViewController: UIViewController {
                         self.imagenDerecha.image = self.imagenIzquierdas(self.imagenNormalizada(image))
                         self.imagenIzquierda.image = self.imagenDerechas(self.imagenNormalizada(image))
                     }
+                    // habilitamos botones para compartir
+                    self.btnFaceDerecha.enabled = true
+                    self.btnFaceIzquierda.enabled = true
+                    self.btnTwitterDerecha.enabled = true
+                    self.btnTwitterIzquierda.enabled = true
                 }
             })
         }
@@ -401,17 +425,19 @@ class ViewController: UIViewController {
     
     // MARK: Merge de imagen con etiqueta
     func mergeImagenEtiqueta(imagen: UIImage) -> UIImage {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 30))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.whiteColor()
-        label.font = UIFont(name: "Helvetica", size: 27.0)
+        label.font = UIFont(name: "Avenir New", size: 22.0)
         label.text = "BothSides App"
         
         let vistaImagen: UIImageView = UIImageView(image: imagen)
         let size = imagen.size
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         vistaImagen.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        label.drawTextInRect(CGRect(x:imagen.size.width / 2 - label.layer.bounds.size.width / 2, y:imagen.size.height / 2, width:200, height:60))
+        let xCentro = imagen.size.width - label.bounds.size.width
+        let yBotton = imagen.size.height - 8 - label.bounds.size.height
+        label.drawTextInRect(CGRect(x:xCentro, y:yBotton, width:200, height:60))
         return UIGraphicsGetImageFromCurrentImageContext()
     }
     
