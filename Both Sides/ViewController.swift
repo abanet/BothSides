@@ -44,6 +44,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnFaceIzquierda: UIButton!
     @IBOutlet weak var btnTwitterIzquierda: UIButton!
     
+    @IBOutlet weak var btnGuardarIzquierda: UIButton!
+    @IBOutlet weak var btnGuardarDerecha: UIButton!
+    
     @IBOutlet var bannerView: GADBannerView!
     
     
@@ -56,6 +59,8 @@ class ViewController: UIViewController {
         btnFaceIzquierda.enabled = false
         btnTwitterDerecha.enabled = false
         btnTwitterIzquierda.enabled = false
+        btnGuardarIzquierda.enabled = false
+        btnGuardarDerecha.enabled = false
         
         btnHacerFoto.layer.cornerRadius = 5
         let tapImagenDerecha = UITapGestureRecognizer()
@@ -127,6 +132,8 @@ class ViewController: UIViewController {
                     self.btnFaceIzquierda.enabled = true
                     self.btnTwitterDerecha.enabled = true
                     self.btnTwitterIzquierda.enabled = true
+                    self.btnGuardarIzquierda.enabled = true
+                    self.btnGuardarDerecha.enabled = true
                 }
             })
         }
@@ -410,6 +417,26 @@ class ViewController: UIViewController {
         compartirTwitterImagen(imagenIzquierda.image!)
     }
     
+    
+    @IBAction func guardarImagenDerecha(sender: AnyObject) {
+        UIImageWriteToSavedPhotosAlbum(mergeImagenEtiqueta(imagenDerecha.image!), self, "image:didFinishSavingWithError:contextInfo:", nil)
+        let alert = UIAlertController(title: "Saved!", message: "Your image has been save to your photo album.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func guardarImagenIzquierda(sender: AnyObject) {
+        UIImageWriteToSavedPhotosAlbum(mergeImagenEtiqueta(imagenIzquierda.image!), self, "image:didFinishSavingWithError:contextInfo:", nil)
+        let alert = UIAlertController(title: "Saved!", message: "Your image has been save to your photo album.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+        print("Image saved")
+    }
+    
     func compartirTwitterImagen(imagen: UIImage) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
             let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
@@ -425,19 +452,30 @@ class ViewController: UIViewController {
     
     // MARK: Merge de imagen con etiqueta
     func mergeImagenEtiqueta(imagen: UIImage) -> UIImage {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 30))
+        // etiqueta blanca
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 25))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.whiteColor()
         label.font = UIFont(name: "Avenir New", size: 22.0)
         label.text = "BothSides App"
+        
+        // etiqueta negra
+        let labelNegra = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 25))
+        labelNegra.translatesAutoresizingMaskIntoConstraints = false
+        labelNegra.textColor = UIColor.blackColor()
+        labelNegra.font = UIFont(name: "Avenir New", size: 22.0)
+        labelNegra.text = "BothSides App"
+        
+        
         
         let vistaImagen: UIImageView = UIImageView(image: imagen)
         let size = imagen.size
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         vistaImagen.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let xCentro = imagen.size.width - label.bounds.size.width
-        let yBotton = imagen.size.height - 8 - label.bounds.size.height
-        label.drawTextInRect(CGRect(x:xCentro, y:yBotton, width:200, height:60))
+        let yBotton = imagen.size.height - label.bounds.size.height
+        label.drawTextInRect(CGRect(x:xCentro, y:yBotton, width:120, height:25))
+        labelNegra.drawTextInRect(CGRect(x: xCentro, y: yBotton - label.bounds.size.height, width: 120, height: 25))
         return UIGraphicsGetImageFromCurrentImageContext()
     }
     
